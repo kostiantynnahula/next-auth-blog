@@ -9,7 +9,9 @@ type Props = {
 }
 
 const getData = async (id: number): Promise<Post> => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+  const res = await fetch(`${process.env.API_PATH}/api/posts/${id}`, {
+    cache: 'no-cache'
+  });
 
   if (!res.ok) {
     throw new Error('Failed to fetch data');
@@ -28,22 +30,22 @@ const BlogId = async ({params}: Props) => {
         <div className={styles.info}>
           <h1 className={styles.title}>{data.title}</h1>
           <p className={styles.desc}>
-            {data.body}
+            {data.desc}
           </p>
           <div className={styles.author}>
             <Image
-              src=''
+              src={data.img}
               alt=""
               width={40}
               height={40}
               className={styles.avatar}
             />
-            <span className={styles.username}>username</span>
+            <span className={styles.username}>{data.username}</span>
           </div>
         </div>
         <div className={styles.imageContainer}>
           <Image
-            src=''
+            src={data.img}
             alt=""
             fill={true}
             className={styles.image}
@@ -52,7 +54,7 @@ const BlogId = async ({params}: Props) => {
       </div>
       <div className={styles.content}>
         <p className={styles.text}>
-        desc
+        {data.content}
         </p>
       </div>
     </div>
