@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import { Post } from '@/app/blog/models';
+import { Metadata } from 'next';
 
 type Props = {
   params: {
@@ -18,6 +19,14 @@ const getData = async (id: number): Promise<Post> => {
   }
 
   return res.json();
+}
+
+export async function generateMetadata({params}: Props): Promise<Metadata> {
+  const post = await getData(params.id);
+  return {
+    title: post.title,
+    description: post.desc,
+  }
 }
 
 const BlogId = async ({params}: Props) => {
