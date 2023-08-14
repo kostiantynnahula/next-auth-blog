@@ -2,9 +2,9 @@ import Post from '@/models/Post';
 import connect from "@/utils/db";
 import { NextResponse, NextRequest } from "next/server";
 
-export const GET = async (request: NextRequest) => {
+export const GET = async (request: NextRequest, { params }: any) => {
   
-  const id = '64d4722204c2691ef348ced7';
+  const { id } = params as any;
 
   try {
     await connect();
